@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mind Matters Daily: Year 8 HPE games</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#E4EBE3; --surface:#F4F7F2; --ink:#1D2622; --muted:#55625B; --line:#C5D0C6;
+  --cinnabar:#B3352B; --bronze:#9A7A3A; --jade:#2F7560; --blue:#3B5A7A;
+  --slip:#DCCB94; --slip-line:#C7B276; --slip-ink:#2B2416; --absent:#7C8781;
+  --on-accent:#FFFFFF; --hero:#EEF2EC; --mtn3:#C3CFC5; --mtn2:#91A598; --mtn1:#4D6258;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#111916; --surface:#1A2420; --ink:#E5ECE5; --muted:#9BA89F; --line:#2E3B35;
+    --cinnabar:#E0574A; --bronze:#C9A45C; --jade:#4FA886; --blue:#7FA3C9;
+    --slip:#3A3424; --slip-line:#4A422E; --slip-ink:#EADFC0; --absent:#46514B; --hero:#16201B; --mtn3:#22302A; --mtn2:#2C3E35; --mtn1:#3B5247;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#111916; --surface:#1A2420; --ink:#E5ECE5; --muted:#9BA89F; --line:#2E3B35;
+  --cinnabar:#E0574A; --bronze:#C9A45C; --jade:#4FA886; --blue:#7FA3C9;
+  --slip:#3A3424; --slip-line:#4A422E; --slip-ink:#EADFC0; --absent:#46514B; --hero:#16201B; --mtn3:#22302A; --mtn2:#2C3E35; --mtn1:#3B5247;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+html[data-big]{font-size:125%}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:1rem;line-height:1.5;-webkit-tap-highlight-color:transparent}
+h1,h2,h3,.display{font-family:"Young Serif","Songti SC","Noto Serif",Georgia,serif;font-weight:800;line-height:1.15;margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.wrap{max-width:960px;margin:0 auto;padding:1.25rem 1rem 3rem}
+.muted{color:var(--muted)}
+
+/* Header */
+.top{display:flex;gap:1rem;align-items:flex-start;justify-content:space-between;margin-bottom:1.25rem}
+.title h1{font-size:clamp(2.1rem,7vw,3.4rem);letter-spacing:-.01em}
+.title p{margin:.35rem 0 0;color:var(--muted);max-width:34rem}
+.seal{flex:none;width:76px;height:76px;background:var(--cinnabar);color:#fff;border-radius:6px;display:grid;place-items:center;text-align:center;transform:rotate(-4deg);box-shadow:inset 0 0 0 3px rgba(255,255,255,.35)}
+.seal b{display:block;font-family:"Young Serif",Georgia,serif;font-size:1.9rem;line-height:1}
+.seal span{font-size:.72rem;line-height:1.1}
+.controls{display:flex;flex-wrap:wrap;gap:.75rem;align-items:center;margin:0 0 1.5rem}
+.seg{display:inline-flex;border:2px solid var(--ink);border-radius:999px;overflow:hidden}
+.seg button{border:0;background:transparent;padding:.45rem 1rem;font-weight:700}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.chip{border:2px solid var(--line);background:var(--surface);border-radius:999px;padding:.4rem .9rem;font-weight:700}
+.chip[aria-pressed="true"]{border-color:var(--jade);color:var(--jade)}
+.stat{font-weight:700}
+
+/* Menu: ink-wash hero + artefact cards */
+.hero{position:relative;overflow:hidden;border-radius:10px;background:var(--hero);padding:1.4rem 1.2rem 0;margin-bottom:1rem}
+.hero .ink{display:block;width:calc(100% + 2.4rem);margin:.6rem -1.2rem 0;height:auto;aspect-ratio:4/1;min-height:120px;max-height:230px}
+.hero .head{position:relative;display:flex;justify-content:space-between;gap:1rem;align-items:flex-start}
+.hero h1{font-size:clamp(2.3rem,8vw,3.8rem);letter-spacing:-.01em}
+.hero p{margin:.4rem 0 0;max-width:30rem;color:var(--muted)}
+.mt3{fill:var(--mtn3)}.mt2{fill:var(--mtn2)}.mt1{fill:var(--mtn1)}.sun{fill:var(--cinnabar)}
+.birds{fill:none;stroke:var(--mtn1);stroke-width:2;stroke-linecap:round}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem}
+@media(min-width:700px){.cards{grid-template-columns:repeat(4,minmax(0,1fr));gap:.9rem}}
+.card{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:1.4rem .95rem 1rem;text-align:left;display:flex;flex-direction:column;gap:.45rem;min-height:190px;transition:border-color .15s ease,transform .15s ease}
+.card::before{content:"";position:absolute;top:0;left:0;right:0;height:9px;background:var(--cinnabar);border-radius:8px 8px 0 0;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='9'%3E%3Cpath d='M1 8V1h12v5H6V4h4' fill='none' stroke='black' stroke-width='1.6'/%3E%3C/svg%3E") repeat-x;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='9'%3E%3Cpath d='M1 8V1h12v5H6V4h4' fill='none' stroke='black' stroke-width='1.6'/%3E%3C/svg%3E") repeat-x}
+.card:hover{border-color:var(--jade);transform:translateY(-2px)}
+.emblem{width:48px;height:48px;border-radius:50%;border:2px solid var(--jade);color:var(--jade);display:grid;place-items:center;margin-bottom:.25rem}
+.emblem svg{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.card h3{font-size:1.22rem;line-height:1.2;color:var(--ink)}
+.card .desc{font-size:.9rem;line-height:1.35;color:var(--muted)}
+.card .go{margin-top:auto;font-weight:700;color:var(--jade);font-size:.9rem}
+.card .done{position:absolute;top:1.1rem;right:.7rem;background:var(--cinnabar);color:#fff;font-weight:700;font-size:.8rem;padding:.2rem .45rem;border-radius:3px;transform:rotate(-6deg)}
+.footnote{margin-top:1.5rem;font-size:.9rem;color:var(--muted);max-width:44rem}
+
+/* Game shell */
+.gtop{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:1rem}
+.back{border:0;background:transparent;font-weight:700;padding:.4rem 0;color:var(--muted)}
+.gtitle{font-size:clamp(1.6rem,5vw,2.2rem)}
+.progress{font-weight:700;color:var(--muted)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:1rem}
+.prompt{font-family:"Young Serif",Georgia,serif;font-weight:600;font-size:clamp(1.25rem,4vw,1.6rem);line-height:1.3;margin:0 0 1rem}
+.tag{display:inline-block;font-size:.78rem;font-weight:700;padding:.1rem .5rem;border-radius:3px;margin-bottom:.6rem;color:var(--on-accent)}
+.tag.main,.tag.china{background:var(--cinnabar)}.tag.a,.tag.other{background:var(--bronze)}.tag.b,.tag.local{background:var(--jade)}.tag.mix,.tag.compare{background:var(--blue)}
+.row{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
+.input{flex:1 1 12rem;min-width:0;padding:.75rem .9rem;border:2px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:inherit;font-size:1.1rem}
+.btn{border:2px solid var(--ink);background:var(--ink);color:var(--bg);padding:.7rem 1.1rem;border-radius:8px;font-weight:700}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn:disabled{opacity:.4;cursor:default}
+.feedback{margin-top:.9rem;padding:.8rem .9rem;border-left:5px solid var(--jade);background:var(--bg);border-radius:0 8px 8px 0}
+.feedback.bad{border-color:var(--cinnabar)}
+.feedback.mid{border-color:var(--bronze)}
+.big-score{font-family:"Young Serif",Georgia,serif;font-size:2.4rem;font-weight:800}
+.list{margin:.5rem 0 0;padding:0;list-style:none;display:grid;gap:.3rem}
+.list li{display:flex;justify-content:space-between;gap:1rem;padding:.35rem .5rem;border-radius:6px;background:var(--surface)}
+.list li.you{outline:2px solid var(--jade)}
+
+/* Wordle */
+.wgrid{display:grid;gap:6px;justify-content:center;margin:.5rem 0 1rem}
+.wrow{display:grid;gap:6px}
+.tile{width:min(11vw,52px);height:min(11vw,52px);display:grid;place-items:center;border:2px solid var(--line);font-weight:700;font-size:1.4rem;border-radius:4px;background:var(--surface)}
+.tile.filled{border-color:var(--muted)}
+.tile.correct{background:var(--jade);border-color:var(--jade);color:#fff}
+.tile.present{background:var(--bronze);border-color:var(--bronze);color:#fff}
+.tile.absent{background:var(--absent);border-color:var(--absent);color:#fff}
+.kb{display:grid;gap:6px;max-width:520px;margin:0 auto}
+.kbr{display:flex;gap:5px;justify-content:center}
+.key{flex:1;min-width:0;height:52px;border:0;border-radius:6px;background:var(--line);font-weight:700;font-size:.95rem;padding:0}
+.key.wide{flex:1.6;font-size:.8rem}
+.key.correct{background:var(--jade);color:#fff}.key.present{background:var(--bronze);color:#fff}.key.absent{background:var(--absent);color:#fff}
+.clue{text-align:center;margin:0 auto .5rem;max-width:32rem}
+
+/* Connections */
+.cgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.ctile{min-height:64px;border:0;border-radius:8px;background:var(--slip);color:var(--slip-ink);font-weight:700;font-size:clamp(.72rem,2.6vw,.95rem);padding:.3rem;line-height:1.15;word-break:break-word}
+.ctile[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.solved{border-radius:8px;padding:.6rem;text-align:center;color:#fff;margin-bottom:6px}
+.solved b{display:block}
+.lv0{background:var(--jade)}.lv1{background:var(--bronze)}.lv2{background:var(--blue)}.lv3{background:var(--cinnabar)}
+.dots{display:inline-flex;gap:4px;vertical-align:middle}.dots i{width:10px;height:10px;border-radius:50%;background:var(--muted);display:inline-block}.dots i.used{background:var(--line)}
+
+/* Timeline */
+.tl{list-style:none;margin:0;padding:0;display:grid;gap:.5rem}
+.tl li{display:flex;align-items:center;gap:.6rem;background:var(--surface);border:2px solid var(--line);border-radius:8px;padding:.55rem .6rem}
+.tl li.ok{border-color:var(--jade)}.tl li.no{border-color:var(--cinnabar)}
+.tl .txt{flex:1}
+.tl .yr{font-weight:700;color:var(--muted);font-size:.9rem;white-space:nowrap}
+.arrows{display:flex;flex-direction:column;gap:3px}
+.arrows button{border:1px solid var(--line);background:var(--bg);border-radius:5px;width:38px;height:28px;padding:0;font-weight:700}
+
+/* Choice buttons */
+.choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem}
+.choice{border:2px solid var(--line);background:var(--surface);border-radius:8px;padding:.9rem .6rem;font-weight:700;min-height:64px}
+.choice.right{border-color:var(--jade);background:var(--jade);color:#fff}
+.choice.wrong{border-color:var(--cinnabar);background:var(--cinnabar);color:#fff}
+.cluelist{margin:0 0 1rem;padding-left:1.4rem;display:grid;gap:.35rem}
+.share{white-space:pre-wrap;background:var(--bg);border:1px dashed var(--line);border-radius:8px;padding:.7rem;font-size:.95rem}
+
+/* New games */
+.ptl{list-style:none;margin:0;padding:0;display:grid;gap:.35rem}
+.ptl li{display:flex;align-items:center;gap:.6rem;border-radius:8px}
+.ptl .ref{background:var(--bg);border:1px solid var(--line);padding:.55rem .7rem}
+.ptl .txt{flex:1}.ptl .yr{font-weight:700;color:var(--muted);font-size:.9rem;white-space:nowrap}
+.ptl .gap button{width:100%;border:2px dashed var(--jade);background:transparent;color:var(--jade);border-radius:8px;padding:.45rem;font-weight:700}
+.ptl .gap.miss{border:2px dashed var(--cinnabar);color:var(--cinnabar);padding:.4rem .7rem;font-weight:700}
+.ptl .placed{padding:.6rem .7rem;color:#fff}.ptl .placed.ok{background:var(--jade)}.ptl .placed.no{background:var(--bronze)}
+.ptl .placed .yr{color:#fff}
+.route{list-style:none;margin:0 0 .6rem;padding:0;display:flex;justify-content:space-between;position:relative}
+.route::before{content:"";position:absolute;left:6px;right:6px;top:7px;height:3px;background:var(--line)}
+.route li{position:relative;display:flex;flex-direction:column;align-items:center;gap:.25rem;flex:1;font-size:.68rem;font-weight:700;text-align:center;color:var(--muted);min-width:0}
+.route .dot{width:16px;height:16px;border-radius:50%;background:var(--surface);border:3px solid var(--line)}
+.route .been .dot{background:var(--bronze);border-color:var(--bronze)}.route .been{color:var(--ink)}
+.route .next .dot{border-color:var(--cinnabar)}
+.trail{font-size:.85rem;font-weight:700;color:var(--bronze);margin:0 0 .4rem}
+.choices.one{grid-template-columns:1fr}
+.meters{display:grid;gap:.4rem}
+.meter{display:grid;grid-template-columns:8.5rem 1fr 2rem;gap:.6rem;align-items:center;font-size:.92rem}
+.meter .bar{height:12px;border-radius:6px;background:var(--line);overflow:hidden}.meter .bar i{display:block;height:100%;transition:width .4s ease}
+.meter b{text-align:right}
+.sortcard{background:var(--slip);color:var(--slip-ink);border-radius:8px;padding:1.2rem 1rem;text-align:center;font-family:"Young Serif",Georgia,serif;font-weight:600;font-size:1.25rem;line-height:1.3}
+.bins{display:grid;gap:.5rem}
+.bin{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:.5rem;display:flex;flex-direction:column;gap:.4rem;min-width:0}
+.bin .btn{padding:.6rem .3rem;font-size:.9rem;word-break:break-word}
+.bin ul{list-style:none;margin:0;padding:0;display:grid;gap:.3rem;font-size:.82rem;line-height:1.3}
+.bin li{overflow-wrap:anywhere;padding:.3rem .4rem;border-radius:5px;border-left:4px solid var(--jade);background:var(--bg)}
+.bin li.no{border-color:var(--cinnabar)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* theme */
+:root{--bg:#EEF0F8;--surface:#FFFFFF;--ink:#1F2140;--muted:#5C5F7E;--line:#D5D8EA;--cinnabar:#C9484E;--bronze:#B57A1E;--jade:#1F7C75;--blue:#4D5BB5;--slip:#DCD6F5;--slip-line:#C9C1EE;--slip-ink:#262046;--absent:#8A8DA6;--hero:#E2E5F4;--mtn3:#C7CCE9;--mtn2:#9CA4D6;--mtn1:#5A64A8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12131F;--surface:#1B1D2D;--ink:#E7E8F5;--muted:#A2A5C2;--line:#2E3048;--cinnabar:#F07A7E;--bronze:#E3AE55;--jade:#4FC0B6;--blue:#8E9BEA;--slip:#2E2A4A;--slip-line:#3A355C;--slip-ink:#E6E1FF;--absent:#464966;--hero:#171A2B;--mtn3:#23284A;--mtn2:#2E3560;--mtn1:#3E4784}}
+:root[data-theme="dark"]{--bg:#12131F;--surface:#1B1D2D;--ink:#E7E8F5;--muted:#A2A5C2;--line:#2E3048;--cinnabar:#F07A7E;--bronze:#E3AE55;--jade:#4FC0B6;--blue:#8E9BEA;--slip:#2E2A4A;--slip-line:#3A355C;--slip-ink:#E6E1FF;--absent:#464966;--hero:#171A2B;--mtn3:#23284A;--mtn2:#2E3560;--mtn1:#3E4784}
+.card::before{-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='9'%3E%3Cpath d='M0 5q4-5 8 0t8 0' fill='none' stroke='black' stroke-width='1.8'/%3E%3C/svg%3E") repeat-x;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='9'%3E%3Cpath d='M0 5q4-5 8 0t8 0' fill='none' stroke='black' stroke-width='1.8'/%3E%3C/svg%3E") repeat-x}
+h1,h2,h3,.display,.prompt,.sortcard,.big-score{font-weight:400}
+</style>
+</head>
+<body>
+<main class="wrap" id="app" aria-live="polite"></main>
+<script>
+/* ============ CONTENT: Year 8 HPE ============
+   Weights: Relationships & mental health 65%, movement & physical activity 15%,
+   healthy & safe choices 15%, connecting ideas 5%. */
+const CONFIG={
+ key:"mind-matters-y8-v1",title:"Mind Matters Daily",
+ tagline:"Twelve quick games for Year 8 Health and PE, focused on relationships and mental health.",
+ mix:"Question mix: 65% relationships and mental health, 15% movement and physical activity, 15% healthy and safe choices, 5% connecting ideas. Need to talk? Kids Helpline is free, any time, on 1800 55 1800.",
+ games:{obscure:{name:"Rare Answers"},dynastle:{name:"Mindle"},groups:{name:"Groups of Four"},timeline:{name:"Rank It",desc:"Put the steps or items in order"},place:{name:"Where Does It Fit?",desc:"Slot an item into a ranked list"},
+   silk:{name:"Support Pathway",desc:"Choose helpful steps when things get tough"},mandate:{name:"Friendship Choices",desc:"Handle tricky moments and keep your balance"},sort:{name:"Sort It Out"}},
+ icons:{mandate:'<circle cx="11" cy="11" r="4"/><circle cx="21" cy="11" r="4"/><path d="M4 26c0-4 3-7 7-7s7 3 7 7M14 26c0-4 3-7 7-7s7 3 7 7"/>',
+   silk:'<path d="M6 28V20h6v-6h6V8h8"/><path d="M22 4l4 4-4 4"/>',timeline:'<path d="M5 26h4V18H5zM14 26h4V12h-4zM23 26h4V6h-4z"/>'},
+ journey:{cat:"main",ask:"What's the most helpful next step?",here:"Current step:",step:"Step"},
+ sim:{cat:"main",unit:"Situation",meters:["Wellbeing","Friendships","Trust"],intro:"Handle a term of Year 8 life. Keep your wellbeing, friendships and trust healthy. If any reaches zero, things fall apart for a while.",fail:"Things have fallen apart for now. Everyone has rough patches, and talking to someone you trust helps.",lost:"Rough patch"}
+};
+const CATW={main:.65,a:.15,b:.15,mix:.05};
+const CATNAME={main:"Relationships & mental health",a:"Movement & physical activity",b:"Healthy & safe choices",mix:"Connecting ideas"};
+
+const WORDS=[
+["EMPATHY","Understanding and sharing how someone else feels.","main"],
+["RESPECT","Treating people as if their feelings and choices matter.","main"],
+["CONSENT","Permission that's freely given and can be taken back at any time.","main"],
+["TRUST","Built when people are honest and reliable.","main"],
+["BOUNDARY","A limit you set about what you're comfortable with.","main"],
+["COPING","Breathing, talking and exercise are healthy ___ strategies.","main"],
+["STRESS","Your body's response to pressure or challenges.","main"],
+["ANXIETY","Worry or fear. In small amounts it can help you prepare.","main"],
+["EMOTION","A feeling like joy, anger or sadness.","main"],
+["MINDFUL","Paying full attention to the present moment.","main"],
+["BULLYING","Repeated, deliberate harm by someone misusing power.","main"],
+["ALLY","Someone who supports and stands up for others.","main"],
+["PEERS","People around your own age.","main"],
+["FRIEND","Someone you like, trust and enjoy being with.","main"],
+["KINDNESS","Being friendly, generous and considerate.","main"],
+["GRATEFUL","Writing down three good things a day can make you feel this.","main"],
+["SUPPORT","Help and encouragement from others.","main"],
+["LISTEN","Give someone your full attention when they speak.","main"],
+["HONESTY","Telling the truth, even when it's hard.","main"],
+["CONFLICT","A disagreement or clash between people.","main"],
+["ASSERT","Stand up for yourself calmly and respectfully.","main"],
+["MOOD","How you feel over a period of time.","main"],
+["VALUES","Beliefs about what's important to you.","main"],
+["IDENTITY","Who you are: your values, culture and interests.","main"],
+["BELONG","Feeling that you're part of a group.","main"],
+["HELPLINE","Kids ___: 1800 55 1800.","main"],
+["RUMOUR","A story spread without being confirmed.","main"],
+["PRIVACY","Keep passwords and personal details private to protect this.","main"],
+["CALM","A relaxed, steady state. Slow breathing helps you get here.","main"],
+["TEAMWORK","Working together towards a shared goal.","a"],
+["STRATEGY","A plan to win or succeed in a game.","a"],
+["FAIRPLAY","Respecting rules, opponents and officials.","a"],
+["TACTIC","A specific move or play used in a game.","a"],
+["STAMINA","Being able to keep going for a long time.","a"],
+["ALCOHOL","Drug that's illegal to buy under 18 in Australia.","b"],
+["VAPING","Using e-cigarettes, which usually contain nicotine.","b"],
+["NICOTINE","Highly addictive drug in cigarettes and most vapes.","b"],
+["SLEEP","Teens need 8 to 10 hours of this a night.","b"],
+["HYDRATE","Drink enough water to do this.","b"],
+["BALANCE","A healthy mix of study, rest, activity and friends.","mix"],
+["HABITS","Small routines that add up over time.","mix"]
+].map(([w,clue,cat])=>({w,clue,cat}));
+
+const OBSCURE=[
+{cat:"main",q:"Name a quality of a good friend.",a:[["Kind",10,"kindness"],["Loyal",15,"loyalty"],["Funny",15],["Fun",15],["Trustworthy",20,"trust"],["Honest",20,"honesty"],["Supportive",25],["Caring",25],["Respectful",30],["Good listener",35,"listens"],["Reliable",40],["Generous",50],["Empathetic",55,"empathy"],["Patient",55],["Forgiving",60],["Accepting",60],["Thoughtful",60],["Encouraging",65],["Dependable",70],["Humble",75]]},
+{cat:"main",q:"Name a healthy way to cope with stress.",a:[["Exercise",10,"sport"],["Music",15,"listening to music"],["Talking to someone",15,"talk","talking"],["Sleep",25],["Deep breathing",30,"breathing"],["Going for a walk",30,"walk","walking"],["Reading",35],["Meditation",40],["Drawing",45,"art"],["Mindfulness",45],["Journaling",50,"writing"],["Time with pets",50,"pets","dog","cat"],["Time in nature",55,"nature","outside"],["Yoga",55],["Laughing",60],["Playing an instrument",60],["Hot shower",65],["Cooking",70],["Stretching",70],["To-do list",75,"list","planning"],["Breaking tasks down",80],["Gratitude",80],["Gardening",85]]},
+{cat:"main",q:"Name an emotion.",a:[["Happy",5,"happiness","joy"],["Sad",5,"sadness"],["Angry",10,"anger"],["Scared",20,"fear","afraid"],["Excited",20],["Nervous",30],["Worried",30],["Bored",35],["Surprised",35],["Jealous",40],["Anxious",40],["Calm",40],["Embarrassed",45],["Lonely",45],["Proud",50],["Frustrated",50],["Confused",50],["Disappointed",55],["Grateful",60],["Guilty",60],["Hopeful",65],["Overwhelmed",65],["Content",75],["Ashamed",75],["Envious",80],["Nostalgic",90],["Awe",90]]},
+{cat:"main",q:"Name someone a young person could go to for help.",a:[["Parent",10,"mum","dad","mom"],["Teacher",15],["Friend",15],["School counsellor",25,"counsellor","counselor"],["Doctor",30,"gp"],["Kids Helpline",40],["Grandparent",40,"nan","grandma","grandpa"],["Coach",45],["Older sibling",45,"sibling","brother","sister"],["Psychologist",50],["School nurse",55],["Aunty or uncle",55,"aunt","aunty","uncle"],["headspace",60],["Police",60],["Year coordinator",65,"head of year"],["Youth worker",75],["Chaplain",75],["Religious leader",80],["Elder",85]]},
+{cat:"main",q:"Name a sign of a respectful relationship.",a:[["Trust",15],["Honesty",15],["Kindness",20],["Listening",25],["Support",25],["Good communication",35,"communication"],["Respecting boundaries",40,"boundaries"],["Equality",45],["Feeling safe",45,"safety"],["Compromise",50],["Encouragement",55],["Apologising",60,"saying sorry"],["Accepting 'no'",65,"accepting no"],["Freedom to see friends",70],["Privacy",70]]},
+{cat:"main",q:"Name a way to show empathy.",a:[["Listen",15,"listening"],["Help them",20,"help"],["Ask how they are",20,"ask if they're okay"],["Comfort them",25,"hug"],["Put yourself in their shoes",30],["Say something kind",30,"kind words"],["Don't judge",45],["Send a message",50],["Be patient",50],["Check in later",55],["Share a similar experience",60],["Sit with them",65],["Validate their feelings",75]]},
+{cat:"main",q:"Name a type of relationship.",a:[["Friendship",10,"friends"],["Family",10],["Classmates",25],["Siblings",30],["Teammates",35],["Teacher and student",35,"teacher"],["Romantic",40,"dating","partner"],["Online friends",45],["Neighbours",50],["Coach and player",50],["Workmates",60,"colleagues"],["Grandparent and grandchild",60],["Mentor",75],["Pen pals",85]]},
+{cat:"main",q:"Name a protective factor for good mental health.",a:[["Friends",15],["Family support",15,"family"],["Sleep",25],["Exercise",25],["Sport",35],["Healthy eating",35],["Hobbies",40],["Belonging",45,"connection"],["Trusted adult",45],["Pets",50],["Time outdoors",55],["Positive self-talk",60],["Goals",60],["Culture",70],["Help-seeking",70],["Spirituality",75,"faith"],["Problem-solving skills",75],["Volunteering",80]]},
+{cat:"main",q:"Name a type of bullying.",a:[["Physical",10,"hitting"],["Verbal",10,"name calling","teasing"],["Cyberbullying",15,"online","cyber"],["Social",35,"exclusion","leaving out"],["Spreading rumours",40,"rumours"],["Threats",45],["Racist bullying",60],["Damaging belongings",65],["Sharing images without consent",75],["Impersonation online",85,"fake accounts"]]},
+{cat:"main",q:"Name a way to stay safe online.",a:[["Strong passwords",10,"password"],["Private account",15],["Don't share personal info",20],["Don't talk to strangers",20],["Block",25,"blocking"],["Report",30,"reporting"],["Think before you post",40],["Tell a trusted adult",40],["Check privacy settings",45,"privacy settings"],["Turn off location",50],["Limit screen time",50],["Log out",55],["Two-factor authentication",60,"2fa"],["Screenshot evidence",60,"screenshot"],["eSafety",80,"esafety commissioner"]]},
+{cat:"a",q:"Name a way to show good sportsmanship.",a:[["Play fair",15],["Follow the rules",15],["Shake hands",10],["Respect the referee",20,"respect officials"],["Encourage teammates",20],["Congratulate the other team",25],["Don't argue",35],["Lose gracefully",40],["Win humbly",45],["Include everyone",45],["Help an injured player",50],["Applaud good play",55]]},
+{cat:"a",q:"Name a benefit of regular physical activity.",a:[["Fitness",10],["Stronger muscles",15],["Better mood",20],["Healthier heart",20],["More energy",25],["Better sleep",30],["Less stress",30],["Stronger bones",35],["Making friends",40],["Better concentration",45],["Confidence",45],["Teamwork",50],["Better coordination",55],["Lower disease risk",65],["Better posture",70],["Self-discipline",80]]},
+{cat:"b",q:"Name a way to say no to peer pressure.",a:[["Say no",10,"no","no thanks"],["Walk away",15],["Make an excuse",25],["Change the subject",35],["Suggest something else",40],["Blame your parents",45,"parents"],["Use humour",50,"joke"],["Be confident",50],["Stay with supportive friends",55],["Repeat yourself",70,"broken record"],["Text a code word to a parent",80,"code word"]]},
+{cat:"b",q:"Name an effect of not getting enough sleep.",a:[["Tiredness",5,"tired"],["Grumpiness",15,"moody","grumpy"],["Poor concentration",20],["Headaches",40],["Forgetfulness",45],["Stress",45],["Lower marks",50],["Slower reactions",55],["Getting sick more",60,"weaker immune system"],["Clumsiness",70],["Craving sugary food",75],["Accidents",80]]},
+{cat:"mix",q:"Name something that's good for both your body and your mind.",a:[["Exercise",10],["Sleep",15],["Healthy food",20],["Water",30],["Time outdoors",45],["Team sport",45],["Yoga",50],["Dancing",50],["Swimming",50],["Meditation",55],["Walking with friends",60],["Laughing",60],["Gardening",80]]}
+];
+
+const FERMI=[
+{cat:"main",q:"Kids Helpline supports young people up to what age?",type:"qty",a:25,unit:"years old",spread:.5,fact:"Ages 5 to 25, by phone (1800 55 1800) or webchat, any time."},
+{cat:"main",q:"In what year did Kids Helpline start?",type:"year",a:1991,scale:40,fact:"1991."},
+{cat:"main",q:"In what year was headspace, the youth mental health foundation, set up?",type:"year",a:2006,scale:30,fact:"2006. It now has centres across Australia for 12–25-year-olds."},
+{cat:"main",q:"What percentage of 16–24-year-old Australians had a mental health condition in the past year?",type:"qty",a:38.8,unit:"%",spread:.6,fact:"About 2 in 5 (38.8%), according to the ABS National Study of Mental Health and Wellbeing 2020–22. It's common, and help works."},
+{cat:"main",q:"About what percentage of lifelong mental health conditions begin before age 25?",type:"qty",a:75,unit:"%",spread:.5,fact:"About three-quarters, which is why getting help early matters."},
+{cat:"main",q:"At about what age does the brain's prefrontal cortex finish developing?",type:"qty",a:25,unit:"years old",spread:.4,fact:"Around the mid-20s. It helps with planning, impulse control and judgement."},
+{cat:"main",q:"Slow breathing for calm works best at about how many breaths per minute?",type:"qty",a:6,unit:"breaths",spread:.6,fact:"About 6 a minute: in for about 4 seconds, out for about 6."},
+{cat:"main",q:"In box breathing, how many seconds is each step?",type:"qty",a:4,unit:"seconds",spread:.5,fact:"Breathe in for 4, hold for 4, out for 4, hold for 4."},
+{cat:"main",q:"If a platform doesn't remove cyberbullying you've reported, after how many hours can you report it to eSafety?",type:"qty",a:48,unit:"hours",spread:.6,fact:"48 hours. You can report at esafety.gov.au."},
+{cat:"main",q:"In what year was Australia's eSafety Commissioner established?",type:"year",a:2015,scale:30,fact:"2015, first as the Children's eSafety Commissioner."},
+{cat:"main",q:"According to researcher Robin Dunbar, about how many meaningful relationships can a person keep up?",type:"qty",a:150,unit:"people",fact:"About 150, known as Dunbar's number. Only around 5 are usually very close."},
+{cat:"a",q:"How many minutes of moderate to vigorous activity should young people get each day?",type:"qty",a:60,unit:"minutes",spread:.6,fact:"At least 60 minutes a day."},
+{cat:"a",q:"How many players does each netball team have on the court?",type:"qty",a:7,unit:"players",spread:.4,fact:"Seven: GS, GA, WA, C, WD, GD and GK."},
+{cat:"a",q:"About how many minutes of activity can start lifting your mood?",type:"qty",a:10,unit:"minutes",spread:.6,fact:"Even around 10 minutes of activity can give your mood a boost."},
+{cat:"b",q:"How many hours of sleep do 14–17-year-olds need each night?",type:"qty",a:9,unit:"hours",spread:.4,fact:"8 to 10 hours."},
+{cat:"b",q:"What's the minimum legal age to buy alcohol in Australia?",type:"qty",a:18,unit:"years old",spread:.4,fact:"18."},
+{cat:"b",q:"What's the most recreational screen time per day recommended for young people, in hours?",type:"qty",a:2,unit:"hours",spread:.6,fact:"No more than 2 hours a day, not counting schoolwork."},
+{cat:"mix",q:"On at least how many days a week should teens do vigorous activity?",type:"qty",a:3,unit:"days",spread:.5,fact:"At least 3 days a week. It helps fitness, mood and sleep."}
+];
+
+const CONNECT=[
+{cat:"main",groups:[
+ {name:"Communication styles",items:["Passive","Assertive","Aggressive","Passive-aggressive"]},
+ {name:"Types of bullying",items:["Physical","Verbal","Social","Cyber"]},
+ {name:"Basic emotions",items:["Joy","Anger","Fear","Sadness"]},
+ {name:"Support services",items:["Kids Helpline","headspace","eSafety","Beyond Blue"]}]},
+{cat:"main",groups:[
+ {name:"Signs of a respectful relationship",items:["Trust","Honesty","Equality","Kindness"]},
+ {name:"Red flags",items:["Jealousy","Controlling","Checking your phone","Isolating you"]},
+ {name:"Coping strategies",items:["Deep breathing","Exercise","Journaling","Talking it out"]},
+ {name:"Active listening",items:["Eye contact","Nodding","Paraphrasing","Asking questions"]}]},
+{cat:"main",groups:[
+ {name:"Upstander actions",items:["Speak up","Report it","Support the target","Distract"]},
+ {name:"Body signs of stress",items:["Racing heart","Sweaty palms","Tight muscles","Upset stomach"]},
+ {name:"Online safety",items:["Strong passwords","Privacy settings","Block","Two-factor login"]},
+ {name:"Parts of identity",items:["Culture","Values","Interests","Beliefs"]}]},
+{cat:"main",groups:[
+ {name:"Protective factors",items:["Supportive family","Good friends","Sleep","Hobbies"]},
+ {name:"Conflict resolution steps",items:["Calm down","Listen","Use I-statements","Compromise"]},
+ {name:"Ways to say no",items:["No thanks","Walk away","Change the subject","Make an excuse"]},
+ {name:"Feel-good brain chemicals",items:["Endorphins","Dopamine","Serotonin","Oxytocin"]}]},
+{cat:"a",groups:[
+ {name:"Sportsmanship",items:["Shake hands","Respect officials","Encourage teammates","Accept the result"]},
+ {name:"Invasion games",items:["Soccer","Netball","Hockey","Basketball"]},
+ {name:"Net and court games",items:["Tennis","Volleyball","Badminton","Table tennis"]},
+ {name:"Striking and fielding games",items:["Cricket","Softball","Baseball","Rounders"]}]},
+{cat:"b",groups:[
+ {name:"Effects of poor sleep",items:["Grumpiness","Poor focus","Slow reactions","Getting sick"]},
+ {name:"Drugs",items:["Alcohol","Nicotine","Caffeine","Cannabis"]},
+ {name:"Sun safety",items:["Hat","Sunscreen","Shade","Sunglasses"]},
+ {name:"Healthy daily habits",items:["Drinking water","Eating breakfast","Bedtime routine","Daily walk"]}]},
+{cat:"mix",groups:[
+ {name:"Good for mood",items:["Exercise","Sunlight","Laughter","Time with friends"]},
+ {name:"Good for sleep",items:["Routine","Dark room","No screens","Cool bedroom"]},
+ {name:"Good for focus",items:["Breakfast","Water","Short breaks","Quiet space"]},
+ {name:"Good for friendships",items:["Listening","Loyalty","Honesty","Kindness"]}]}
+];
+
+const RANK=[
+{cat:"main",title:"From passive to aggressive",low:"Most passive",high:"Most aggressive",items:[
+ ["Says nothing and goes along with it",1,"Passive"],["Calmly says 'I feel… when… I need…'",2,"Assertive"],["Raises their voice and interrupts",3,"Aggressive"],["Insults or threatens the other person",4,"Very aggressive"]]},
+{cat:"main",title:"Resolving a conflict",low:"First",high:"Last",items:[
+ ["Take a breath and calm down",1],["Listen to the other person's side",2],["Explain how you feel with an I-statement",3],["Brainstorm solutions together",4],["Agree on a solution you can both live with",5],["Check in later to see how it's going",6]]},
+{cat:"main",title:"The mental health continuum",low:"Most well",high:"Most unwell",note:"Anyone can move along the continuum, and support helps people move back.",items:[
+ ["Normal ups and downs, sleeping well, enjoying friends",1,"Healthy"],["Nervous, irritable, some trouble sleeping",2,"Reacting"],["Ongoing worry, tired, pulling away from friends",3,"Injured"],["Can't do usual activities, sleep badly disrupted",4,"Ill"]]},
+{cat:"main",title:"If you're cyberbullied",low:"First",high:"Last",note:"You can talk to a trusted adult at any point.",items:[
+ ["Don't reply or retaliate",1],["Screenshot the evidence",2],["Report it to the platform",3],["Block the person",4],["Report to eSafety if it isn't removed within 48 hours",5]]},
+{cat:"a",title:"A safe training session",low:"First",high:"Last",items:[
+ ["Light jog to raise your pulse",1],["Dynamic stretches like leg swings",2],["Skill drills for your sport",3],["Main game or workout",4],["Easy jog or walk to cool down",5],["Static stretches held 15–30 seconds",6]]},
+{cat:"a",title:"How intense is it?",low:"Least energy used",high:"Most energy used",note:"Measured in METs: 1 MET is the energy you use resting.",items:[
+ ["Sleeping",0.9,"about 1 MET"],["Sitting and gaming",1.3,"about 1.3 METs"],["Walking at a gentle pace",2.8,"about 3 METs"],["Riding a bike at a moderate pace",6.8,"about 7 METs"],["Running at 8 km/h",8.3,"about 8 METs"],["Fast rope skipping",12.3,"about 12 METs"]]},
+{cat:"b",title:"DRSABCD first aid steps",low:"First",high:"Last",items:[
+ ["Check for Danger",1],["Check for a Response",2],["Send for help (call 000)",3],["Open the Airway",4],["Check Breathing",5],["Start CPR",6],["Attach a Defibrillator",7]]},
+{cat:"b",title:"Sleep needed at different ages",low:"Least sleep",high:"Most sleep",items:[
+ ["Adults",8,"7–9 hours"],["Teenagers (14–17)",9,"8–10 hours"],["Children (5–13)",10,"9–11 hours"],["Toddlers",12.5,"11–14 hours"],["Newborns",15.5,"14–17 hours"]]}
+];
+
+const WHO=[
+{cat:"main",a:["Empathy","empathetic"],clues:["I'm different from sympathy, which is feeling sorry for someone.","Active listening helps you show me.","I involve imagining yourself in someone else's situation.","Saying 'that sounds really hard' is one way to show me.","I'm the ability to understand and share someone's feelings."]},
+{cat:"main",a:["Resilience","resilient"],clues:["I'm not about never struggling.","Supportive relationships help build me.","I grow when you face challenges and get through them.","People describe me as 'bouncing back'.","I'm the ability to cope with and recover from setbacks."]},
+{cat:"main",a:["Consent"],clues:["I must be freely given, without pressure.","I can be taken back at any time.","Silence or 'maybe' doesn't mean I've been given.","I apply to hugs, sharing photos and borrowing things.","I'm permission that's clear and ongoing."]},
+{cat:"main",a:["Peer pressure","peer influence"],clues:["I can be positive, like friends encouraging you to try out for a team.","I can be spoken or unspoken.","Having a ready excuse helps you resist me.","I usually come from people your own age.","I'm the influence of friends to act a certain way."]},
+{cat:"main",a:["Assertiveness","assertive","being assertive","assertive communication"],clues:["I sit between passive and aggressive.","I-statements are one of my tools.","A calm voice and eye contact help.","I respect both your needs and other people's.","I'm the communication style of standing up for yourself respectfully."]},
+{cat:"main",a:["Upstander","active bystander"],clues:["I'm the opposite of a passive bystander.","I might distract, support or report.","I don't have to confront a bully to make a difference.","Checking in with the target afterwards is something I do.","I'm a person who takes action when they see bullying."]},
+{cat:"main",a:["Kids Helpline","kidshelpline"],clues:["I started in 1991.","You can reach me by phone or webchat.","Counsellors answer 24 hours a day, every day.","I support young people aged 5 to 25.","My number is 1800 55 1800."]},
+{cat:"main",a:["headspace","head space"],clues:["I was set up in 2006.","I have centres all over Australia.","I support 12–25-year-olds.","I help with mental health, physical health, study, work, and alcohol and drugs.","I'm the National Youth Mental Health Foundation."]},
+{cat:"main",a:["eSafety Commissioner","esafety","esafety commission"],clues:["I'm an Australian Government agency.","I began in 2015.","You can report serious cyberbullying to me.","I can order platforms to remove harmful content.","I'm Australia's independent online safety regulator."]},
+{cat:"main",a:["Anxiety","anxious"],clues:["In small doses I can help you prepare for a test.","A racing heart and sweaty palms can be signs of me.","Avoiding things can make me grow stronger over time.","Slow breathing can calm me down.","I'm a feeling of worry, nervousness or fear."]},
+{cat:"main",a:["Stress"],clues:["Deadlines and exams often trigger me.","Adrenaline and cortisol are my hormones.","A little of me can help you perform.","Too much of me for too long affects sleep and mood.","I'm the body's response to pressure."]},
+{cat:"main",a:["Mindfulness","mindful"],clues:["I'm about noticing thoughts without judging them.","You can practise me while eating, walking or breathing.","Apps like Smiling Mind teach me.","I help you focus on the present moment.","I'm the practice of paying full attention to right now."]},
+{cat:"a",a:["Teamwork","team work"],clues:["Communication on and off the field builds me.","Clear roles help me.","Encouraging each other keeps me strong.","I happen when people combine their strengths.","I'm working together towards a shared goal."]},
+{cat:"b",a:["Nicotine"],clues:["I'm the main drug in cigarettes and most vapes.","I'm highly addictive.","I can harm the developing teenage brain.","Stopping me can cause headaches and irritability.","I'm the addictive chemical in tobacco."]},
+{cat:"b",a:["Sleep"],clues:["Teenagers' body clocks shift later, making me harder to start early.","Screens before bed can delay me.","Your brain sorts memories during me.","14–17-year-olds need 8 to 10 hours of me.","I'm what you do in bed every night."]},
+{cat:"mix",a:["Endorphins","endorphin"],clues:["I'm a chemical made by your brain.","Exercise releases me.","Laughing can release me too.","I help reduce pain.","I'm the feel-good chemical behind a 'runner's high'."]}
+];
+
+const ODD=[
+{cat:"main",o:["Trust","Honesty","Respect","Jealousy"],x:"Jealousy",why:"Jealousy can be a red flag. The others are signs of a respectful relationship."},
+{cat:"main",o:["Kids Helpline","headspace","eSafety","Instagram"],x:"Instagram",why:"Instagram is a social media app. The others are support services."},
+{cat:"main",o:["Joy","Fear","Anger","Hunger"],x:"Hunger",why:"Hunger is a body signal. The others are emotions."},
+{cat:"main",o:["Passive","Assertive","Aggressive","Optimistic"],x:"Optimistic",why:"Optimistic describes outlook. The others are communication styles."},
+{cat:"main",o:["Physical","Verbal","Social","Accidental"],x:"Accidental",why:"Bullying is deliberate. The others are types of bullying."},
+{cat:"main",o:["Deep breathing","Going for a walk","Talking to a friend","Bottling it up"],x:"Bottling it up",why:"Bottling feelings up is unhelpful. The others are healthy coping strategies."},
+{cat:"main",o:["Listening","Eye contact","Nodding","Interrupting"],x:"Interrupting",why:"Interrupting blocks communication. The others are part of active listening."},
+{cat:"main",o:["Speak up","Report it","Support the target","Film it and share"],x:"Film it and share",why:"Sharing a video makes the harm worse. The others are upstander actions."},
+{cat:"main",o:["Checking your phone","Demanding passwords","Isolating you from friends","Respecting your privacy"],x:"Respecting your privacy",why:"Respecting privacy is healthy. The others are controlling behaviours."},
+{cat:"main",o:["Endorphins","Dopamine","Serotonin","Cortisol"],x:"Cortisol",why:"Cortisol is a stress hormone. The others are linked with feeling good."},
+{cat:"main",o:["Culture","Values","Interests","Shoe size"],x:"Shoe size",why:"Shoe size isn't part of your identity in the HPE sense. The others are."},
+{cat:"main",o:["Strong password","Private account","Two-factor login","Public location sharing"],x:"Public location sharing",why:"Sharing your location publicly is risky. The others keep you safer online."},
+{cat:"a",o:["Soccer","Netball","Hockey","Tennis"],x:"Tennis",why:"Tennis is a net and court game. The others are invasion games."},
+{cat:"b",o:["Alcohol","Nicotine","Caffeine","Water"],x:"Water",why:"Water isn't a drug. The others are."},
+{cat:"b",o:["Same bedtime","Dark room","No screens in bed","Energy drink after school"],x:"Energy drink after school",why:"Caffeine can disrupt sleep. The others help you sleep well."},
+{cat:"mix",o:["Exercise","Sleep","Time with friends","Doomscrolling"],x:"Doomscrolling",why:"Endless scrolling tends to lower mood. The others boost wellbeing."}
+];
+
+const TF=[
+{cat:"main",s:"Everyone has mental health, just like everyone has physical health.",t:true,why:"Fact. Mental health can be good or poor and changes over time."},
+{cat:"main",s:"Asking a friend if they're okay could make things worse.",t:false,why:"Myth. Asking and really listening helps people feel less alone."},
+{cat:"main",s:"Bullying has to be physical to count.",t:false,why:"Myth. Verbal, social and online bullying are all bullying."},
+{cat:"main",s:"If someone is jealous when you see your friends, it just means they care more.",t:false,why:"Myth. Jealousy and trying to control who you see are red flags, not signs of love."},
+{cat:"main",s:"Consent can be taken back at any time.",t:true,why:"Fact. Saying yes once doesn't mean yes forever."},
+{cat:"main",s:"Talking about your feelings is a sign of weakness.",t:false,why:"Myth. Reaching out takes strength and is one of the best ways to cope."},
+{cat:"main",s:"Some stress can actually help you perform.",t:true,why:"Fact. A little stress can sharpen focus. Too much for too long is the problem."},
+{cat:"main",s:"Kids Helpline is only for children under 12.",t:false,why:"Myth. It's for anyone aged 5 to 25. Call 1800 55 1800."},
+{cat:"main",s:"A one-off argument between friends counts as bullying.",t:false,why:"Myth. Bullying is repeated and involves a misuse of power. Arguments still deserve sorting out."},
+{cat:"main",s:"Exercise can help reduce feelings of anxiety and low mood.",t:true,why:"Fact. Activity releases chemicals that lift mood and ease stress."},
+{cat:"main",s:"A bystander can't really make a difference.",t:false,why:"Myth. When bystanders speak up, support or report, bullying often stops sooner."},
+{cat:"main",s:"You can report serious cyberbullying to eSafety if a platform doesn't remove it.",t:true,why:"Fact. If it isn't removed within 48 hours, report it at esafety.gov.au."},
+{cat:"main",s:"Mental health problems only affect adults.",t:false,why:"Myth. About half of mental health conditions start by age 14."},
+{cat:"main",s:"Feeling sad sometimes means you have a mental illness.",t:false,why:"Myth. Sadness is a normal emotion. It's worth getting help if it lasts weeks or stops you doing things."},
+{cat:"main",s:"Using I-statements can help resolve conflicts.",t:true,why:"Fact. 'I feel… when…' explains your view without blaming."},
+{cat:"a",s:"You need to be good at sport to benefit from being active.",t:false,why:"Myth. Any movement you enjoy brings benefits."},
+{cat:"a",s:"Playing team sport can be good for your mental health.",t:true,why:"Fact. It combines exercise with belonging and friendship."},
+{cat:"b",s:"Energy drinks are safe for teenagers because shops sell them.",t:false,why:"Myth. Their caffeine and sugar aren't recommended for young people."},
+{cat:"b",s:"Teenagers need about 8 to 10 hours of sleep.",t:true,why:"Fact. Sleep affects mood, focus and relationships."},
+{cat:"b",s:"Vapes only make harmless water vapour.",t:false,why:"Myth. Most contain nicotine and other chemicals that can harm your lungs and brain."},
+{cat:"mix",s:"Sleep, exercise and food can all affect your mood.",t:true,why:"Fact. Looking after your body helps look after your mind."}
+];
+
+const ROUTE=[
+{n:"Notice how you feel",f:"You've felt flat and stressed for a couple of weeks. Noticing that is the first step."},
+{n:"Name the feeling",f:"Putting a name to it, like 'anxious' or 'overwhelmed', makes big feelings easier to manage."},
+{n:"Try a coping strategy",f:"Slow breathing, a walk or some music can take the edge off while you work out what's going on."},
+{n:"Talk to someone you trust",f:"Sharing with a friend or family member means you don't have to carry it alone."},
+{n:"Speak to a trusted adult",f:"A parent, teacher or year coordinator can help you work out next steps."},
+{n:"See a counsellor or GP",f:"School counsellors and GPs can work out what's happening and connect you with the right support."},
+{n:"Keep up your support",f:"Pathway complete. headspace (ages 12–25) and Kids Helpline (1800 55 1800, ages 5–25) are there whenever you need them."}
+];
+const DECOYS=[
+{n:"Keep it all to yourself",why:"Bottling feelings up usually makes them heavier. Reaching out works better."},
+{n:"Post about it angrily online",why:"Venting online can lead to regret and conflict. Talk to someone directly instead."},
+{n:"Pretend everything's fine",why:"Hiding how you feel delays getting support."},
+{n:"Game all night to forget",why:"Losing sleep tends to make stress and low mood worse."},
+{n:"Cancel plans with every friend",why:"Pulling away from people cuts you off from support."},
+{n:"Search random forums for a diagnosis",why:"Online forums can be unreliable. A trusted adult or professional is a better guide."},
+{n:"Wait for it to go away by itself",why:"Sometimes feelings pass, but if they've lasted weeks it's worth taking action."}
+];
+
+const MANDATE=[
+{s:"Someone posts an embarrassing photo of a classmate in your group chat.",c:[
+ {t:"Don't share it, and say it's not okay",e:[5,-5,15]},{t:"Laugh and forward it on",e:[-5,5,-20]},{t:"Ignore it and say nothing",e:[0,0,-5]}],
+ note:"Sharing images of someone without their consent can be harmful, and serious cases can be reported to eSafety."},
+{s:"Your best friend has been quiet, skipping lunch and seems really down.",c:[
+ {t:"Check in privately and really listen",e:[5,10,10]},{t:"Tell others they're acting weird",e:[-5,-15,-15]},{t:"Leave them alone. They'll be fine",e:[0,-10,-5]}],
+ note:"Asking 'are you okay?' and listening matters. If you're worried, tell a trusted adult. Kids Helpline is 1800 55 1800."},
+{s:"Three assessments are due the same week and you feel overwhelmed.",c:[
+ {t:"Make a plan, break tasks down and ask a teacher for help",e:[15,0,5]},{t:"Stay up late every night to cram",e:[-15,-5,0]},{t:"Ignore it and hope it goes away",e:[-10,0,-5]}],
+ note:"Breaking big tasks into small steps, and asking for help early, reduces stress."},
+{s:"A new student is sitting alone at lunch.",c:[
+ {t:"Invite them to sit with you",e:[10,10,5]},{t:"Ignore them. They'll find someone",e:[0,-5,0]},{t:"Make a joke about them",e:[-5,-5,-10]}],
+ note:"Small acts of inclusion help people feel they belong, which protects mental health."},
+{s:"Someone you're close to demands your passwords and sulks when you see other friends.",c:[
+ {t:"Say you're not comfortable with that, and talk to a trusted adult",e:[10,5,10]},{t:"Give in to keep the peace",e:[-15,-10,-5]},{t:"Stop seeing your other friends",e:[-10,-20,-5]}],
+ note:"Demanding passwords, checking your phone or cutting you off from friends are controlling behaviours, not care."},
+{s:"You and a friend have a big argument over a misunderstanding.",c:[
+ {t:"Wait until you're calm, then talk using I-statements",e:[5,15,10]},{t:"Post about them online",e:[-5,-15,-15]},{t:"Get other friends to take sides",e:[-5,-10,-10]}],
+ note:"Calming down first, listening and using 'I feel…' statements helps resolve conflict."},
+{s:"Friends are pressuring you to try vaping behind the gym.",c:[
+ {t:"Say 'no thanks' and suggest something else",e:[10,0,10]},{t:"Try it so you fit in",e:[-15,5,-5]},{t:"Make an excuse and leave",e:[5,0,5]}],
+ note:"Most vapes contain nicotine, which is highly addictive and can harm the developing brain."},
+{s:"You get a nasty anonymous message online.",c:[
+ {t:"Don't reply. Screenshot, report, block and tell an adult",e:[10,0,10]},{t:"Reply with something worse",e:[-10,-5,-10]},{t:"Delete everything and tell no one",e:[-10,0,-5]}],
+ note:"Keeping evidence and reporting helps stop cyberbullying. eSafety can help if platforms don't act."},
+{s:"You did badly on a test and keep telling yourself you're useless.",c:[
+ {t:"Talk to yourself like you'd talk to a friend, then plan for next time",e:[15,0,5]},{t:"Keep repeating that you're useless",e:[-15,0,0]},{t:"Decide you don't care and stop trying",e:[-10,0,-5]}],
+ note:"Positive, realistic self-talk builds resilience. One result doesn't define you."},
+{s:"Your parent wants to talk about your screen time and you're annoyed.",c:[
+ {t:"Listen, share your view calmly and agree on a plan",e:[5,0,15]},{t:"Storm off and slam the door",e:[-10,0,-15]},{t:"Agree, then secretly ignore it",e:[0,0,-10]}],
+ note:"Assertive communication, where both people are heard, builds trust in families too."}
+];
+
+const SORTS=[
+{cat:"main",title:"Respectful or red flag?",bins:["Respectful","Red flag"],cards:[
+ ["Respects your 'no'",0],["Is happy you have other friends",0],["Says sorry when they're wrong",0],["Listens when you're upset",0],
+ ["Checks your phone without asking",1],["Pressures you to send photos",1],["Gets jealous when you see friends",1],["Puts you down in front of others",1]]},
+{cat:"main",title:"Passive, assertive or aggressive?",bins:["Passive","Assertive","Aggressive"],cards:[
+ ["'Um, it's fine, whatever you want.'",0],["Saying nothing when someone pushes in",0],["Apologising for things that aren't your fault",0],
+ ["'I feel upset when I'm interrupted. Can I finish?'",1],["'No thanks, I don't want to.'",1],["Calmly asking for what you need",1],
+ ["'Just do it my way!'",2],["Shouting over someone",2],["Threatening to spread a secret",2]]},
+{cat:"main",title:"Helpful or unhelpful coping?",bins:["Helpful","Unhelpful"],cards:[
+ ["Going for a walk",0],["Talking to a friend",0],["Slow breathing",0],["Writing in a journal",0],
+ ["Bottling it up",1],["Scrolling in bed all night",1],["Taking it out on others",1],["Avoiding everyone",1]]},
+{cat:"main",title:"Bullying or not?",bins:["Bullying","Not bullying"],cards:[
+ ["Leaving someone out on purpose, again and again",0],["Spreading rumours about someone for weeks",0],["Sending mean messages every day",0],["Repeatedly taking someone's things",0],
+ ["A one-off argument between friends",1],["Two friends disagreeing about a game",1],["Someone accidentally bumping you once",1],["Being told 'no' politely",1]]},
+{cat:"a",title:"What kind of game?",bins:["Invasion","Net and court","Striking and fielding"],cards:[
+ ["Soccer",0],["Netball",0],["Touch football",0],["Tennis",1],["Volleyball",1],["Badminton",1],["Cricket",2],["Softball",2],["Baseball",2]]},
+{cat:"b",title:"Healthy or risky sleep habit?",bins:["Healthy","Risky"],cards:[
+ ["Same bedtime each night",0],["Charging your phone outside your room",0],["Getting morning sunlight",0],["A wind-down routine",0],
+ ["Energy drink after school",1],["Scrolling in bed",1],["Sleeping until noon on weekends",1],["Gaming until midnight",1]]}
+];
+
+/* ============ ENGINE ============ */
+const KEY=CONFIG.key;
+let store={days:{},practice:0,big:false};
+try{const s=JSON.parse(localStorage.getItem(KEY)||"null");if(s&&typeof s==="object")store=Object.assign(store,s)}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(store))}catch(e){}}
+const S={mode:"daily"};
+let keyHandler=null;
+
+function today(){const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+function hashStr(s){let h=1779033703^s.length;for(let i=0;i<s.length;i++){h=Math.imul(h^s.charCodeAt(i),3432918353);h=h<<13|h>>>19}return h>>>0}
+function mulberry(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function rngFor(id){return S.mode==="daily"?mulberry(hashStr(today()+":"+id)):Math.random}
+function pick(pool,n,rng){
+  const copies={};pool.forEach(it=>{(copies[it.cat]=copies[it.cat]||[]).push(it)});
+  const out=[];
+  while(out.length<n){
+    const cats=Object.keys(copies).filter(k=>copies[k].length);if(!cats.length)break;
+    const tot=cats.reduce((s,k)=>s+(CATW[k]||.05),0);let r=rng()*tot,c=cats[cats.length-1];
+    for(const k of cats){r-=CATW[k]||.05;if(r<=0){c=k;break}}
+    const arr=copies[c];out.push(arr.splice(Math.floor(rng()*arr.length),1)[0]);
+  }
+  return out;
+}
+function shuffle(a,rng){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(rng()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function norm(s){return String(s).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/^the /,"").replace(/[^a-z0-9]/g,"")}
+function lev(a,b){if(Math.abs(a.length-b.length)>2)return 9;const d=Array.from({length:a.length+1},(_,i)=>[i]);for(let j=1;j<=b.length;j++)d[0][j]=j;for(let i=1;i<=a.length;i++)for(let j=1;j<=b.length;j++)d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));return d[a.length][b.length]}
+function matches(input,aliases){
+  const g=norm(input);if(!g)return false;
+  for(const al of aliases){const a=norm(al);if(!a)continue;
+    if(g===a||g+"s"===a||g===a+"s"||g+"es"===a)return true;
+    const tol=a.length>=9?2:a.length>=5?1:0;if(tol&&lev(g,a)<=tol)return true;}
+  return false;
+}
+function fmtNum(n){return Number(n).toLocaleString("en-AU",{maximumFractionDigits:2})}
+function fmtYear(y){return y<0?`${fmtNum(-y)} BCE`:`${y} CE`}
+const $=s=>document.querySelector(s);
+const app=document.getElementById("app");
+
+function record(id,score,max,line){
+  if(S.mode==="daily"){const d=today();store.days[d]=store.days[d]||{};store.days[d][id]={score,max,line}}
+  else store.practice=(store.practice||0)+score;
+  save();
+}
+function streak(){let n=0;const d=new Date();if(!store.days[today()])d.setDate(d.getDate()-1);
+  for(;;){const k=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");if(store.days[k]&&Object.keys(store.days[k]).length){n++;d.setDate(d.getDate()-1)}else break}return n}
+
+const ICON={
+dynastle:'<path d="M7 5v22M13 5v22M19 5v22M25 5v22M4 11h24M4 21h24"/>',
+obscure:'<path d="M8 7h16M8 25h16M8 7a3 3 0 0 0 0 6M24 7a3 3 0 0 1 0 6M8 19a3 3 0 0 0 0 6M24 19a3 3 0 0 1 0 6M9 13v6M23 13v6M13 14h6M13 18h4"/>',
+closest:'<circle cx="16" cy="16" r="12"/><rect x="12" y="12" width="8" height="8"/>',
+groups:'<rect x="5" y="5" width="9" height="9" rx="1"/><rect x="18" y="5" width="9" height="9" rx="1"/><rect x="5" y="18" width="9" height="9" rx="1"/><rect x="18" y="18" width="9" height="9" rx="1"/>',
+timeline:'<path d="M3 16h26"/><circle cx="7" cy="16" r="2.5"/><circle cx="16" cy="16" r="2.5"/><circle cx="25" cy="16" r="2.5"/><path d="M7 9v4M16 19v4M25 9v4"/>',
+who:'<rect x="5" y="5" width="22" height="22" rx="2"/><path d="M12.5 12.5a3.5 3.5 0 1 1 5 3.2c-1 .5-1.5 1.2-1.5 2.3v.5"/><path d="M16 22.5v.01"/>',
+odd:'<circle cx="9" cy="9" r="4"/><circle cx="23" cy="9" r="4"/><circle cx="9" cy="23" r="4"/><rect x="19" y="19" width="8" height="8"/>',
+place:'<path d="M3 25h26"/><circle cx="7" cy="25" r="2"/><circle cx="25" cy="25" r="2"/><path d="M16 25v-6"/><circle cx="16" cy="12" r="5"/>',
+silk:'<path d="M4 25c7 0 6-9 12-9s5-9 12-9"/><circle cx="4" cy="25" r="2.2"/><circle cx="16" cy="16" r="2.2"/><circle cx="28" cy="7" r="2.2"/>',
+mandate:'<circle cx="16" cy="16" r="5"/><path d="M16 4v4M16 24v4M4 16h4M24 16h4M7.5 7.5l2.8 2.8M21.7 21.7l2.8 2.8M7.5 24.5l2.8-2.8M21.7 10.3l2.8-2.8"/>',
+sort:'<path d="M4 13h7v13H4zM12.5 13h7v13h-7zM21 13h7v13h-7zM13 4h6v5h-6z"/>',
+myth:'<circle cx="16" cy="16" r="12"/><path d="M16 4a6 6 0 0 1 0 12a6 6 0 0 0 0 12"/><circle cx="16" cy="10" r="1.3"/><circle cx="16" cy="22" r="1.3"/>'
+};
+const GAMES=[
+{id:"dynastle",name:"Dynastle",desc:"Guess the hidden word in six tries",run:runWordle},
+{id:"obscure",name:"Obscure Scholar",desc:"Rarer correct answers score more",run:runObscure},
+{id:"closest",name:"Closest Guess",desc:"Estimate the number or year",run:runFermi},
+{id:"groups",name:"Four Treasures",desc:"Sort 16 items into four groups",run:runConnect},
+{id:"timeline",name:"Timeline",desc:"Put six events in order",run:runTimeline},
+{id:"who",name:"Who Am I?",desc:"Name it from as few clues as you can",run:runWho},
+{id:"odd",name:"Odd One Out",desc:"Spot the item that doesn't belong",run:runOdd},
+{id:"myth",name:"Myth or Fact",desc:"Bust the myths about the past",run:runMyth},
+{id:"place",name:"Place in Time",desc:"Slot an event into the timeline",run:runPlace},
+{id:"silk",name:"Silk Road Journey",desc:"Lead a caravan from Chang'an to Rome",run:runSilk},
+{id:"mandate",name:"Mandate of Heaven",desc:"Rule as a Han emperor and keep power",run:runMandate},
+{id:"sort",name:"Sort the Scrolls",desc:"Sort each card into the right group",run:runSort}
+];
+GAMES.forEach(g=>{const o=CONFIG.games[g.id];if(o)Object.assign(g,o)});Object.assign(ICON,CONFIG.icons||{});
+
+function home(){
+  if(keyHandler){document.removeEventListener("keydown",keyHandler);keyHandler=null}
+  const d=new Date(),day=store.days[today()]||{};
+  const played=Object.keys(day).length,total=Object.values(day).reduce((s,r)=>s+Math.round(100*r.score/r.max),0);
+  app.innerHTML=`
+  <header class="hero">
+    <div class="head">
+      <div><h1>${esc(CONFIG.title)}</h1>
+        <p>${esc(CONFIG.tagline)}</p></div>
+      <div class="seal" aria-label="Today's date"><div><b>${d.getDate()}</b><span>${d.toLocaleDateString("en-AU",{month:"short"})}</span></div></div>
+    </div>
+    <svg class="ink" viewBox="0 0 800 200" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+      <circle class="sun" cx="585" cy="58" r="28"/>
+      <path class="birds" d="M430 40q6-6 12 0q6-6 12 0M475 58q4-4 8 0q4-4 8 0"/>
+      <path class="mt3" d="M0 140C80 70 140 105 200 55C260 15 300 95 360 75C420 55 470 5 540 45C600 80 650 55 720 35C760 25 790 55 800 65V200H0Z"/>
+      <path class="mt2" d="M0 170C70 120 120 150 180 110C240 75 290 140 360 120C430 100 480 130 560 100C630 75 700 130 800 110V200H0Z"/>
+      <path class="mt1" d="M0 200V182C100 158 160 188 260 172C360 156 420 192 520 177C620 162 700 188 800 172V200Z"/>
+    </svg>
+  </header>
+  <div class="controls">
+    <div class="seg" role="group" aria-label="Mode">
+      <button data-mode="daily" aria-pressed="${S.mode==="daily"}">Daily</button>
+      <button data-mode="practice" aria-pressed="${S.mode==="practice"}">Practice</button>
+    </div>
+    <button class="chip" id="big" aria-pressed="${!!store.big}">Big screen text</button>
+    <span class="stat">${S.mode==="daily"?`${played}/${GAMES.length} played today · Streak ${streak()} day${streak()===1?"":"s"}`:`Practice points: ${fmtNum(store.practice||0)}`}</span>
+  </div>
+  <nav class="cards" aria-label="Games">
+    ${GAMES.map(g=>{const r=S.mode==="daily"&&day[g.id];return `<button class="card" data-g="${g.id}">
+      ${r?`<span class="done">${r.score}/${r.max}</span>`:""}
+      <span class="emblem"><svg viewBox="0 0 32 32" aria-hidden="true">${ICON[g.id]}</svg></span>
+      <h3>${esc(g.name)}</h3><span class="desc">${esc(g.desc)}</span>
+      <span class="go">${r?"See result":"Play"}</span></button>`}).join("")}
+  </nav>
+  <p class="footnote">${S.mode==="daily"?"Daily puzzles are the same for everyone today and reset at midnight. Switch to Practice for unlimited random rounds.":"Practice gives a fresh random round every time."} ${esc(CONFIG.mix)}</p>`;
+  app.querySelectorAll("[data-mode]").forEach(b=>b.onclick=()=>{S.mode=b.dataset.mode;home()});
+  $("#big").onclick=()=>{store.big=!store.big;save();applyBig();home()};
+  app.querySelectorAll("[data-g]").forEach(b=>b.onclick=()=>openGame(b.dataset.g));
+  window.scrollTo(0,0);
+}
+function applyBig(){if(store.big)document.documentElement.setAttribute("data-big","");else document.documentElement.removeAttribute("data-big")}
+
+function openGame(id){
+  const g=GAMES.find(x=>x.id===id);
+  const done=S.mode==="daily"&&(store.days[today()]||{})[id];
+  if(done){showResult(g,done.score,done.max,done.line,true);return}
+  g.run(g);
+}
+function shell(g,progress,inner){
+  app.innerHTML=`<div class="gtop"><button class="back" id="back">‹ All games</button><span class="progress">${progress||""}</span></div>
+  <h2 class="gtitle" style="margin-bottom:1rem">${esc(g.name)}</h2>${inner}`;
+  $("#back").onclick=home;
+}
+function tag(cat){return `<span class="tag ${cat}">${CATNAME[cat]}</span>`}
+
+function showResult(g,score,max,line,already){
+  if(keyHandler){document.removeEventListener("keydown",keyHandler);keyHandler=null}
+  if(!already)record(g.id,score,max,line);
+  const share=`${CONFIG.title} ${S.mode==="daily"?today():"(practice)"}\n${line}`;
+  shell(g,"",`<div class="panel">
+    ${already?`<p class="muted" style="margin-top:0">You've already played today's ${esc(g.name)}.</p>`:""}
+    <div class="big-score">${score} / ${max}</div>
+    <p class="share" id="sh">${esc(share)}</p>
+    <div class="row">
+      <button class="btn" id="copy">Copy result</button>
+      <button class="btn ghost" id="again">${S.mode==="daily"?"Practise this game":"Play again"}</button>
+      <button class="btn ghost" id="home2">All games</button>
+    </div><p id="cmsg" class="muted"></p></div>`);
+  $("#copy").onclick=async()=>{try{await navigator.clipboard.writeText(share);$("#cmsg").textContent="Copied."}catch(e){$("#cmsg").textContent="Select the text above to copy it."}};
+  $("#again").onclick=()=>{S.mode="practice";g.run(g)};
+  $("#home2").onclick=home;
+}
+
+/* ---------- Dynastle ---------- */
+function runWordle(g){
+  const rng=rngFor(g.id);const item=pick(WORDS,1,rng)[0];const T=item.w;const L=T.length;
+  const guesses=[];let cur="",over=false,msg="";const keyState={};
+  const rows=["QWERTYUIOP","ASDFGHJKL","+ZXCVBNM-"];
+  function evalG(gs){const r=Array(L).fill("absent"),c={};for(let i=0;i<L;i++){if(gs[i]===T[i])r[i]="correct";else c[T[i]]=(c[T[i]]||0)+1}for(let i=0;i<L;i++){if(r[i]!=="correct"&&c[gs[i]]>0){r[i]="present";c[gs[i]]--}}return r}
+  const rank={absent:1,present:2,correct:3};
+  function draw(){
+    let grid="";for(let r=0;r<6;r++){const gs=guesses[r];let cells="";
+      for(let i=0;i<L;i++){if(gs){cells+=`<div class="tile ${gs.res[i]}">${gs.w[i]}</div>`}else if(r===guesses.length&&!over){const ch=cur[i]||"";cells+=`<div class="tile ${ch?"filled":""}">${ch}</div>`}else cells+=`<div class="tile"></div>`}
+      grid+=`<div class="wrow" style="grid-template-columns:repeat(${L},auto)">${cells}</div>`}
+    shell(g,`${L} letters`,`${tag(item.cat)}<p class="clue"><b>Clue:</b> ${esc(item.clue)}</p>
+      <div class="wgrid" role="grid" aria-label="Guesses">${grid}</div>
+      <p class="clue muted" id="wmsg" aria-live="assertive">${esc(msg)}</p>
+      <div class="kb">${rows.map(r=>`<div class="kbr">${[...r].map(k=>k==="+"?`<button class="key wide" data-k="ENTER">Enter</button>`:k==="-"?`<button class="key wide" data-k="DEL" aria-label="Delete">Del</button>`:`<button class="key ${keyState[k]||""}" data-k="${k}">${k}</button>`).join("")}</div>`).join("")}</div>`);
+    app.querySelectorAll("[data-k]").forEach(b=>b.onclick=()=>press(b.dataset.k));
+  }
+  function press(k){
+    if(over)return;
+    if(k==="ENTER"){
+      if(cur.length!==L){msg=`The word has ${L} letters.`;draw();return}
+      const res=evalG(cur);guesses.push({w:cur,res});
+      [...cur].forEach((ch,i)=>{if(!keyState[ch]||rank[res[i]]>rank[keyState[ch]])keyState[ch]=res[i]});
+      const won=cur===T;cur="";msg="";
+      if(won||guesses.length===6){over=true;
+        const grid=guesses.map(x=>x.res.map(r=>r==="correct"?"🟩":r==="present"?"🟨":"⬛").join("")).join("\n");
+        const score=won?7-guesses.length:0;
+        msg=won?`Solved! ${T}.`:`The word was ${T}.`;draw();
+        setTimeout(()=>showResult(g,score,6,`${g.name} ${won?guesses.length:"X"}/6\n${grid}`),1300);return}
+    }else if(k==="DEL"){cur=cur.slice(0,-1)}
+    else if(/^[A-Z]$/.test(k)&&cur.length<L){cur+=k}
+    draw();
+  }
+  keyHandler=e=>{if(e.metaKey||e.ctrlKey||e.altKey)return;const k=e.key;if(k==="Enter"){e.preventDefault();press("ENTER")}else if(k==="Backspace")press("DEL");else if(/^[a-zA-Z]$/.test(k))press(k.toUpperCase())};
+  document.addEventListener("keydown",keyHandler);
+  draw();
+}
+
+/* ---------- Obscure Scholar ---------- */
+function runObscure(g){
+  const rng=rngFor(g.id);const qs=pick(OBSCURE,5,rng);let i=0,total=0,misses=0;const lines=[];
+  function step(){
+    const q=qs[i];misses=0;
+    shell(g,`Prompt ${i+1} of ${qs.length}`,`<div class="panel">${tag(q.cat)}<p class="prompt">${esc(q.q)}</p>
+      <p class="muted" style="margin-top:-.4rem">Common answers score low. Think of something correct that few people would say.</p>
+      <div class="row"><input class="input" id="ans" autocomplete="off" aria-label="Your answer" placeholder="Type one answer"><button class="btn" id="go">Submit</button></div>
+      <div id="fb"></div></div>`);
+    const inp=$("#ans");inp.focus();
+    const submit=()=>{const v=inp.value.trim();if(!v)return;
+      const hit=q.a.find(a=>matches(v,[a[0],...a.slice(2)]));
+      if(!hit){misses++;
+        if(misses<3){$("#fb").innerHTML=`<div class="feedback bad">“${esc(v)}” isn't on our list. Check spelling or try another answer (${3-misses} ${3-misses===1?"try":"tries"} left).</div>`;inp.value="";inp.focus();return}
+        reveal(null,0);return}
+      reveal(hit,hit[1]);};
+    $("#go").onclick=submit;inp.onkeydown=e=>{if(e.key==="Enter")submit()};
+  }
+  function reveal(hit,pts){
+    total+=pts;const q=qs[i];lines.push(pts>=70?"🟥":pts>=40?"🟧":pts>0?"🟨":"⬛");
+    const sorted=q.a.slice().sort((a,b)=>b[1]-a[1]);
+    $("#fb").innerHTML=`<div class="feedback ${pts>=40?"":pts>0?"mid":"bad"}"><b>${hit?`${esc(hit[0])}: ${pts} points`:"No points this time"}</b>
+      <p style="margin:.4rem 0 .2rem">Answers on our list, rarest first:</p>
+      <ul class="list">${sorted.map(a=>`<li class="${hit===a?"you":""}"><span>${esc(a[0])}</span><span class="muted">${a[1]}</span></li>`).join("")}</ul>
+      <div class="row" style="margin-top:.8rem"><button class="btn" id="nx">${i+1<qs.length?"Next prompt":"See result"}</button></div></div>`;
+    $("#go").disabled=true;$("#ans").disabled=true;
+    $("#nx").onclick=()=>{i++;if(i<qs.length)step();else showResult(g,total,qs.length*100,`${g.name} ${total} pts\n${lines.join("")}`)};$("#nx").focus();
+  }
+  step();
+}
+
+/* ---------- Closest Guess ---------- */
+function runFermi(g){
+  const rng=rngFor(g.id);const qs=pick(FERMI,5,rng);let i=0,total=0;const lines=[];
+  function step(){
+    const q=qs[i];let era=-1;
+    shell(g,`Question ${i+1} of ${qs.length}`,`<div class="panel">${tag(q.cat)}<p class="prompt">${esc(q.q)}</p>
+      <div class="row"><input class="input" id="ans" inputmode="decimal" autocomplete="off" aria-label="Your estimate" placeholder="${q.type==="year"?"Year":"Your estimate"}">
+      ${q.type==="year"?`<div class="seg" role="group" aria-label="Era"><button data-era="-1" aria-pressed="true">BCE</button><button data-era="1" aria-pressed="false">CE</button></div>`:`<span class="muted">${esc(q.unit)}</span>`}
+      <button class="btn" id="go">Lock in</button></div><div id="fb"></div></div>`);
+    app.querySelectorAll("[data-era]").forEach(b=>b.onclick=()=>{era=+b.dataset.era;app.querySelectorAll("[data-era]").forEach(x=>x.setAttribute("aria-pressed",x===b))});
+    const inp=$("#ans");inp.focus();
+    const submit=()=>{let v=parseFloat(inp.value.replace(/,/g,""));if(!isFinite(v)){$("#fb").innerHTML=`<div class="feedback bad">Enter a number.</div>`;return}
+      let pts;
+      if(q.type==="year"){v=Math.abs(v)*era;pts=Math.max(0,Math.round(100-Math.abs(v-q.a)/q.scale*100))}
+      else{if(v<=0){$("#fb").innerHTML=`<div class="feedback bad">Enter a number greater than zero.</div>`;return}
+        pts=Math.max(0,Math.round(100*(1-Math.abs(Math.log10(v/q.a))/(q.spread||1))))}
+      total+=pts;lines.push(pts>=90?"🎯":pts>=60?"🟩":pts>=30?"🟨":"⬛");
+      const ans=q.type==="year"?fmtYear(q.a):`${fmtNum(q.a)} ${q.unit}`,you=q.type==="year"?fmtYear(v):`${fmtNum(v)} ${q.unit}`;
+      $("#fb").innerHTML=`<div class="feedback ${pts>=60?"":pts>=30?"mid":"bad"}"><b>${pts} points.</b> You said ${esc(you)}. Answer: ${esc(ans)}.<p style="margin:.4rem 0 0">${esc(q.fact)}</p>
+        <div class="row" style="margin-top:.8rem"><button class="btn" id="nx">${i+1<qs.length?"Next question":"See result"}</button></div></div>`;
+      $("#go").disabled=true;inp.disabled=true;
+      $("#nx").onclick=()=>{i++;if(i<qs.length)step();else showResult(g,total,qs.length*100,`${g.name} ${total} pts\n${lines.join("")}`)};$("#nx").focus();};
+    $("#go").onclick=submit;inp.onkeydown=e=>{if(e.key==="Enter")submit()};
+  }
+  step();
+}
+
+/* ---------- Four Treasures (Connections) ---------- */
+function runConnect(g){
+  const rng=rngFor(g.id);const P=pick(CONNECT,1,rng)[0];
+  const groups=P.groups.map((x,lv)=>({...x,lv}));
+  let tiles=shuffle(groups.flatMap(x=>x.items),rng),sel=[],solved=[],mistakes=0,msg="",foundCount=0;const hist=[];
+  const sq=["🟩","🟫","🟦","🟥"];
+  function draw(){
+    shell(g,`Mistakes left <span class="dots">${[0,1,2,3].map(k=>`<i class="${k<mistakes?"used":""}"></i>`).join("")}</span>`,
+     `${tag(P.cat)}<p class="muted" style="margin-top:0">Find four groups of four. Tap four items, then check.</p>
+     ${solved.map(s=>`<div class="solved lv${s.lv}"><b>${esc(s.name)}</b>${esc(s.items.join(", "))}</div>`).join("")}
+     <div class="cgrid">${tiles.map(t=>`<button class="ctile" data-t="${esc(t)}" aria-pressed="${sel.includes(t)}">${esc(t)}</button>`).join("")}</div>
+     <p class="muted" style="min-height:1.5em;text-align:center" aria-live="assertive">${esc(msg)}</p>
+     <div class="row" style="justify-content:center"><button class="btn ghost" id="shuf">Shuffle</button><button class="btn ghost" id="clr">Deselect</button><button class="btn" id="chk" ${sel.length===4?"":"disabled"}>Check</button></div>`);
+    app.querySelectorAll("[data-t]").forEach(b=>b.onclick=()=>{const t=b.dataset.t;if(sel.includes(t))sel=sel.filter(x=>x!==t);else if(sel.length<4)sel.push(t);msg="";draw()});
+    $("#shuf").onclick=()=>{tiles=shuffle(tiles,Math.random);draw()};
+    $("#clr").onclick=()=>{sel=[];draw()};
+    $("#chk").onclick=check;
+  }
+  function check(){
+    hist.push(sel.map(t=>sq[groups.find(x=>x.items.includes(t)).lv]).join(""));
+    const grp=groups.find(x=>sel.every(t=>x.items.includes(t)));
+    if(grp){solved.push(grp);tiles=tiles.filter(t=>!grp.items.includes(t));sel=[];msg="";
+      if(solved.length===4){draw();return finish(true)}}
+    else{mistakes++;const best=Math.max(...groups.map(x=>sel.filter(t=>x.items.includes(t)).length));
+      msg=best===3?"One away.":"Not a group.";
+      if(mistakes>=4){foundCount=solved.length;solved=solved.concat(groups.filter(x=>!solved.includes(x)));tiles=[];sel=[];msg="Out of mistakes. Here are the groups.";draw();return finish(false)}}
+    draw();
+  }
+  function finish(won){
+    const score=won?8-mistakes:foundCount;
+    setTimeout(()=>showResult(g,score,8,`${g.name} ${won?"solved":"unsolved"}, ${mistakes} mistake${mistakes===1?"":"s"}\n${hist.join("\n")}`),1800);
+  }
+  draw();
+}
+
+/* ---------- Rank It (ordering) ---------- */
+const mkItem=it=>({t:it[0],y:it[1],d:it[2]||("Step "+it[1])});
+function runTimeline(g){
+  const rng=rngFor(g.id);const set=pick(RANK,1,rng)[0];
+  const evs=shuffle(set.items,rng).slice(0,6).map(mkItem);
+  let order=shuffle(evs,rng);const correct=evs.slice().sort((a,b)=>a.y-b.y);let attempt=0,marks=null,done=false,score=0;const lines=[];
+  function draw(){
+    shell(g,`Check ${Math.min(attempt+1,3)} of 3`,`${tag(set.cat)}<h3 style="margin:.2rem 0 .3rem">${esc(set.title)}</h3>
+      <p class="muted" style="margin-top:0">${esc(set.low)} at the top, ${esc(set.high.toLowerCase())} at the bottom. You get three checks.${set.note?" "+esc(set.note):""}</p>
+      <ol class="tl">${order.map((e,k)=>`<li class="${marks?(marks[k]?"ok":"no"):""}">
+        <div class="arrows"><button data-up="${k}" aria-label="Move up" ${k===0||done?"disabled":""}>▲</button><button data-dn="${k}" aria-label="Move down" ${k===order.length-1||done?"disabled":""}>▼</button></div>
+        <span class="txt">${esc(e.t)}</span>${done?`<span class="yr">${esc(e.d)}</span>`:""}</li>`).join("")}</ol>
+      <div class="row" style="margin-top:1rem">${done?`<button class="btn" id="fin">See result</button>`:`<button class="btn" id="chk">Check order</button>`}</div>`);
+    app.querySelectorAll("[data-up]").forEach(b=>b.onclick=()=>{const k=+b.dataset.up;[order[k-1],order[k]]=[order[k],order[k-1]];marks=null;draw()});
+    app.querySelectorAll("[data-dn]").forEach(b=>b.onclick=()=>{const k=+b.dataset.dn;[order[k+1],order[k]]=[order[k],order[k+1]];marks=null;draw()});
+    if($("#chk"))$("#chk").onclick=check;if($("#fin"))$("#fin").onclick=()=>showResult(g,score,100,`${g.name} ${score} pts\n${lines.join("\n")}`);
+  }
+  function check(){
+    attempt++;marks=order.map((e,k)=>e.y===correct[k].y);const n=marks.filter(Boolean).length;lines.push(marks.map(m=>m?"🟩":"⬛").join(""));
+    if(n===order.length){score=[100,70,40][attempt-1];done=true}
+    else if(attempt>=3){score=Math.round(n/order.length*60);done=true;order=correct.slice();marks=order.map(()=>true)}
+    draw();
+  }
+  draw();
+}
+
+/* ---------- Who Am I? ---------- */
+function runWho(g){
+  const rng=rngFor(g.id);const qs=pick(WHO,3,rng);let i=0,total=0;const lines=[];
+  function step(){
+    const q=qs[i];let shown=1,over=false,fb="";
+    function draw(){
+      shell(g,`Mystery ${i+1} of ${qs.length}`,`<div class="panel">${tag(q.cat)}<p class="prompt">Who or what am I?</p>
+        <ol class="cluelist">${q.clues.slice(0,shown).map(c=>`<li>${esc(c)}</li>`).join("")}</ol>
+        ${over?"":`<div class="row"><input class="input" id="ans" autocomplete="off" aria-label="Your guess" placeholder="Your guess"><button class="btn" id="go">Guess</button>
+        <button class="btn ghost" id="more">${shown<5?`Next clue (${100-shown*20} pts left)`:"Give up"}</button></div>`}
+        <div>${fb}</div></div>`);
+      if(over){$("#nx").onclick=()=>{i++;if(i<qs.length)step();else showResult(g,total,qs.length*100,`${g.name} ${total} pts\n${lines.join("")}`)};$("#nx").focus();return}
+      const inp=$("#ans");inp.focus();
+      const submit=()=>{const v=inp.value.trim();if(!v)return;
+        if(matches(v,q.a)){const pts=120-shown*20;total+=pts;lines.push(["","🥇","🥈","🥉","🟩","🟨"][shown]);over=true;
+          fb=`<div class="feedback"><b>${esc(q.a[0])}! ${pts} points.</b><ol class="cluelist" style="margin:.5rem 0 0">${q.clues.slice(shown).map(c=>`<li>${esc(c)}</li>`).join("")}</ol><div class="row" style="margin-top:.8rem"><button class="btn" id="nx">${i+1<qs.length?"Next mystery":"See result"}</button></div></div>`;draw()}
+        else{fb=`<div class="feedback bad">Not “${esc(v)}”.${shown<5?" Try again or reveal another clue.":" Try again or give up."}</div>`;draw()}};
+      $("#go").onclick=submit;inp.onkeydown=e=>{if(e.key==="Enter")submit()};
+      $("#more").onclick=()=>{if(shown<5){shown++;fb="";draw()}else{over=true;lines.push("⬛");fb=`<div class="feedback bad"><b>It was ${esc(q.a[0])}.</b><div class="row" style="margin-top:.8rem"><button class="btn" id="nx">${i+1<qs.length?"Next mystery":"See result"}</button></div></div>`;draw()}};
+    }
+    draw();
+  }
+  step();
+}
+
+/* ---------- Odd One Out & Myth or Fact ---------- */
+function runChoice(g,items,n,render){
+  const rng=rngFor(g.id);const qs=pick(items,n,rng);let i=0,total=0;const lines=[];
+  function step(){
+    const q=qs[i];const {prompt,opts,isRight,why}=render(q,rng);
+    shell(g,`${i+1} of ${qs.length}`,`<div class="panel">${tag(q.cat)}<p class="prompt">${esc(prompt)}</p>
+      <div class="choices">${opts.map((o,k)=>`<button class="choice" data-k="${k}">${esc(o)}</button>`).join("")}</div><div id="fb"></div></div>`);
+    app.querySelectorAll("[data-k]").forEach(b=>b.onclick=()=>{
+      const k=+b.dataset.k,ok=isRight(opts[k]);if(ok)total+=10;lines.push(ok?"🟩":"⬛");
+      app.querySelectorAll("[data-k]").forEach(x=>{x.disabled=true;if(isRight(opts[+x.dataset.k]))x.classList.add("right");else if(x===b)x.classList.add("wrong")});
+      $("#fb").innerHTML=`<div class="feedback ${ok?"":"bad"}"><b>${ok?"Correct.":"Not quite."}</b> ${esc(why)}<div class="row" style="margin-top:.8rem"><button class="btn" id="nx">${i+1<qs.length?"Next":"See result"}</button></div></div>`;
+      $("#nx").onclick=()=>{i++;if(i<qs.length)step();else showResult(g,total,qs.length*10,`${g.name} ${total/10}/${qs.length}\n${lines.join("")}`)};$("#nx").focus();});
+  }
+  step();
+}
+function runOdd(g){runChoice(g,ODD,8,(q,rng)=>({prompt:"Which one doesn't belong?",opts:shuffle(q.o,rng),isRight:o=>o===q.x,why:q.why}))}
+function runMyth(g){runChoice(g,TF,10,q=>({prompt:q.s,opts:["Fact","Myth"],isRight:o=>(o==="Fact")===q.t,why:q.why}))}
+
+/* ---------- Where Does It Fit? ---------- */
+function runPlace(g){
+  const rng=rngFor(g.id);const R=5;let i=0,total=0;const lines=[];const used=new Set();
+  const rounds=[];for(let r=0;r<R;r++){const set=pick(RANK,1,rng)[0];const avail=set.items.filter(it=>!used.has(it));const pool=avail.length?avail:set.items;
+    const t=pool[Math.floor(rng()*pool.length)];used.add(t);
+    const refs=shuffle(set.items.filter(x=>x[1]!==t[1]),rng).slice(0,4).sort((a,b)=>a[1]-b[1]).map(mkItem);rounds.push({set,t:mkItem(t),refs})}
+  function step(){
+    const {set,t,refs}=rounds[i];const right=refs.filter(r=>r.y<t.y).length;let chosen=null;
+    function draw(){
+      let html="";
+      for(let k=0;k<=refs.length;k++){
+        if(chosen===null)html+=`<li class="gap"><button data-gap="${k}">Place it here</button></li>`;
+        else{
+          if(k===right)html+=`<li class="placed ${chosen===right?"ok":"no"}"><span class="txt"><b>${esc(t.t)}</b></span><span class="yr">${esc(t.d)}</span></li>`;
+          if(k===chosen&&chosen!==right)html+=`<li class="gap miss"><span>Your guess</span></li>`;
+        }
+        if(k<refs.length)html+=`<li class="ref"><span class="txt">${esc(refs[k].t)}</span><span class="yr">${esc(refs[k].d)}</span></li>`;
+      }
+      shell(g,`Round ${i+1} of ${R}`,`<div class="panel">${tag(set.cat)}<p class="muted" style="margin:0">${esc(set.title)}. Where does this fit?</p>
+        <p class="prompt">${esc(t.t)}</p>
+        <p class="muted" style="margin-top:-.4rem">${esc(set.low)} at the top, ${esc(set.high.toLowerCase())} at the bottom.</p>
+        <ol class="ptl">${html}</ol><div id="fb"></div></div>`);
+      app.querySelectorAll("[data-gap]").forEach(b=>b.onclick=()=>{
+        chosen=+b.dataset.gap;const off=Math.abs(chosen-right);const pts=off===0?20:off===1?10:0;total+=pts;lines.push(off===0?"🟩":off===1?"🟨":"⬛");draw();
+        $("#fb").innerHTML=`<div class="feedback ${off===0?"":off===1?"mid":"bad"}"><b>${off===0?"Exactly right. 20 points.":off===1?"One spot away. 10 points.":"Not quite. 0 points."}</b> ${esc(t.t)}: ${esc(t.d)}.${set.note?" "+esc(set.note):""}
+          <div class="row" style="margin-top:.8rem"><button class="btn" id="nx">${i+1<R?"Next round":"See result"}</button></div></div>`;
+        $("#nx").onclick=()=>{i++;if(i<R)step();else showResult(g,total,R*20,`${g.name} ${total} pts\n${lines.join("")}`)};$("#nx").focus();});
+    }
+    draw();
+  }
+  step();
+}
+
+/* ---------- Silk Road Journey ---------- */
+function runSilk(g){
+  const rng=rngFor(g.id);let k=1,total=0,tries=0;const lines=[];const max=(ROUTE.length-1)*10;
+  let opts=null,wrong=[],fb="";
+  function newOpts(){opts=shuffle([ROUTE[k],...shuffle(DECOYS,rng).slice(0,2)],rng);wrong=[];tries=0}
+  function draw(){
+    const done=k>=ROUTE.length;
+    shell(g,done?"Arrived":`${CONFIG.journey.step} ${k} of ${ROUTE.length-1}`,`<div class="panel">${tag(CONFIG.journey.cat)}
+      <ol class="route" aria-hidden="true">${ROUTE.map((r,j)=>`<li class="${j<k?"been":j===k?"next":""}"><span class="dot"></span></li>`).join("")}</ol>
+      <p class="trail">${ROUTE.slice(0,Math.min(k,ROUTE.length)).map(r=>esc(r.n)).join(" › ")}${k<ROUTE.length?" › ?":""}</p>
+      <p class="muted" style="margin:.2rem 0 0">${esc(CONFIG.journey.here)} <b>${esc(ROUTE[Math.min(k,ROUTE.length)-1].n)}</b>. ${esc(ROUTE[Math.min(k,ROUTE.length)-1].f)}</p>
+      ${done?"":`<p class="prompt" style="margin-top:1rem">${esc(CONFIG.journey.ask)}</p>
+      <div class="choices one">${opts.map((o,j)=>`<button class="choice ${wrong.includes(o)?"wrong":""}" data-o="${j}" ${wrong.includes(o)?"disabled":""}>${esc(o.n)}</button>`).join("")}</div>`}
+      <div>${fb}</div>${done?`<div class="row" style="margin-top:1rem"><button class="btn" id="fin">See result</button></div>`:""}</div>`);
+    app.querySelectorAll("[data-o]").forEach(b=>b.onclick=()=>{
+      const o=opts[+b.dataset.o];
+      if(o===ROUTE[k]){const pts=tries===0?10:tries===1?5:0;total+=pts;lines.push(tries===0?"🐫":tries===1?"🟨":"⬛");fb=`<div class="feedback"><b>On to ${esc(o.n)}. +${pts}</b></div>`;k++;if(k<ROUTE.length)newOpts();draw()}
+      else{tries++;wrong.push(o);fb=`<div class="feedback bad">${esc(o.why)}</div>`;
+        if(tries>=2){lines.push("⬛");fb+=`<div class="feedback mid">The next stop was ${esc(ROUTE[k].n)}.</div>`;k++;if(k<ROUTE.length)newOpts()}
+        draw()}});
+    if($("#fin"))$("#fin").onclick=()=>showResult(g,total,max,`${g.name} ${total}/${max}\n${lines.join("")}`);
+  }
+  newOpts();draw();
+}
+
+/* ---------- Mandate of Heaven ---------- */
+function runMandate(g){
+  const rng=rngFor(g.id);const evs=shuffle(MANDATE,rng).slice(0,6).map(ev=>({...ev,c:shuffle(ev.c,rng)}));let i=0;const m={h:60,p:60,t:60};const lines=[];let fb="",answered=false,fallen=false;
+  const clamp=v=>Math.max(0,Math.min(100,v));
+  function meter(label,v){return `<div class="meter"><span>${label}</span><div class="bar"><i style="width:${v}%;background:${v<25?"var(--cinnabar)":v<50?"var(--bronze)":"var(--jade)"}"></i></div><b>${v}</b></div>`}
+  function draw(){
+    const ev=evs[i];
+    shell(g,`${CONFIG.sim.unit} ${i+1} of ${evs.length}`,`<div class="panel">${tag(CONFIG.sim.cat)}
+      <p class="muted" style="margin-top:0">${esc(CONFIG.sim.intro)}</p>
+      <div class="meters">${meter(CONFIG.sim.meters[0],m.h)}${meter(CONFIG.sim.meters[1],m.p)}${meter(CONFIG.sim.meters[2],m.t)}</div>
+      <p class="prompt" style="margin-top:1rem">${esc(ev.s)}</p>
+      ${answered?"":`<div class="choices one">${ev.c.map((c,j)=>`<button class="choice" data-c="${j}">${esc(c.t)}</button>`).join("")}</div>`}
+      <div>${fb}</div></div>`);
+    app.querySelectorAll("[data-c]").forEach(b=>b.onclick=()=>{
+      const c=ev.c[+b.dataset.c];const [dh,dp,dt]=c.e;m.h=clamp(m.h+dh);m.p=clamp(m.p+dp);m.t=clamp(m.t+dt);
+      const net=dh+dp+dt;lines.push(net>0?"🟩":net>-10?"🟨":"🟥");
+      const sg=v=>(v>0?"+":"")+v;
+      fallen=m.h===0||m.p===0||m.t===0;answered=true;
+      fb=`<div class="feedback ${net>0?"":net>-10?"mid":"bad"}"><b>You chose: ${esc(c.t)}.</b> ${CONFIG.sim.meters[0]} ${sg(dh)}, ${CONFIG.sim.meters[1].toLowerCase()} ${sg(dp)}, ${CONFIG.sim.meters[2].toLowerCase()} ${sg(dt)}.
+        <p style="margin:.4rem 0 0">${esc(ev.note)}</p>
+        ${fallen?`<p style="margin:.4rem 0 0"><b>${esc(CONFIG.sim.fail)}</b></p>`:""}
+        <div class="row" style="margin-top:.8rem"><button class="btn" id="nx">${!fallen&&i+1<evs.length?"Next":"See result"}</button></div></div>`;
+      draw();
+      $("#nx").onclick=()=>{if(!fallen&&i+1<evs.length){i++;answered=false;fb="";draw()}else{const score=fallen?0:Math.round((m.h+m.p+m.t)/3);
+        showResult(g,score,100,`${g.name} ${fallen?CONFIG.sim.lost:score+"/100"}\n${lines.join("")}`)}};$("#nx").focus();});
+  }
+  draw();
+}
+
+/* ---------- Sort the Scrolls ---------- */
+function runSort(g){
+  const rng=rngFor(g.id);const set=pick(SORTS,1,rng)[0];const cards=shuffle(set.cards,rng);let i=0,score=0;const placed=set.bins.map(()=>[]);const lines=[];let fb="";
+  function draw(){
+    const done=i>=cards.length;const card=cards[i];
+    shell(g,done?"Sorted":`Card ${i+1} of ${cards.length}`,`${tag(set.cat)}<h3 style="margin:.2rem 0 .8rem">${esc(set.title)}</h3>
+      ${done?"":`<div class="sortcard">${esc(card[0])}</div><p class="muted" style="text-align:center;margin:.4rem 0 .8rem">Tap the group it belongs to.</p>`}
+      <div class="bins" style="grid-template-columns:repeat(${set.bins.length},minmax(0,1fr))">${set.bins.map((b,j)=>`<div class="bin">
+        <button class="btn ${done?"ghost":""}" data-b="${j}" ${done?"disabled":""}>${esc(b)}</button>
+        <ul>${placed[j].map(p=>`<li class="${p.ok?"ok":"no"}">${esc(p.text)}${p.ok?"":` <span class="muted">(${esc(set.bins[p.right])})</span>`}</li>`).join("")}</ul></div>`).join("")}</div>
+      <div>${fb}</div>${done?`<div class="row" style="margin-top:1rem"><button class="btn" id="fin">See result</button></div>`:""}`);
+    app.querySelectorAll("[data-b]").forEach(b=>b.onclick=()=>{
+      const j=+b.dataset.b,ok=j===card[1];if(ok)score++;lines.push(ok?"🟩":"⬛");placed[j].push({text:card[0],ok,right:card[1]});
+      fb=ok?"":`<div class="feedback bad">“${esc(card[0])}” belongs in ${esc(set.bins[card[1]])}.</div>`;i++;draw()});
+    if($("#fin"))$("#fin").onclick=()=>showResult(g,score,cards.length,`${g.name}: ${set.title} ${score}/${cards.length}\n${lines.join("")}`);
+  }
+  draw();
+}
+
+applyBig();home();
+</script>
+</body>
+</html>
